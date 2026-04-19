@@ -1,2 +1,2025 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Теникс Такси – Скопје | Od 1992</title>
+  <meta name="description" content="Теникс – Такси компанија во Скопје со 34 години традиција. 24/7 сервис. Нарачај такси: 021 5194 | +389 71 209 194" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E2C27A;
+      --gold-dark: #9A7A30;
+      --red: #B00020;
+      --red-dark: #7A0015;
+      --black: #080808;
+      --black-2: #111111;
+      --black-3: #1A1A1A;
+      --white: #F5F0E8;
+      --white-dim: #B8B0A0;
+      --gap: 80px;
+    }
 
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 4px; }
+
+    /* ── SELECTION ── */
+    ::selection { background: var(--gold); color: var(--black); }
+
+    /* ── SCROLL PROGRESS ── */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--red), var(--gold), var(--gold-light));
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 60px;
+      background: rgba(8,8,8,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      transition: padding 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    nav.scrolled {
+      padding: 12px 60px;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.08),
+                  0 0 40px rgba(201,168,76,0.06), inset 0 -1px 0 rgba(201,168,76,0.2);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+      mix-blend-mode: screen;
+    }
+
+    .nav-logo:hover .nav-logo-icon {
+      transform: rotate(-5deg) scale(1.08);
+    }
+
+    .nav-brand {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+
+    .nav-brand strong {
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--white-dim);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links a:not(.nav-cta):hover { color: var(--gold); }
+    .nav-links a:not(.nav-cta):hover::after { transform: scaleX(1); }
+
+    .nav-cta {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      padding: 8px 22px;
+      border-radius: 2px;
+      transition: background 0.25s, color 0.25s, box-shadow 0.25s !important;
+      overflow: hidden;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold) !important;
+      color: var(--black) !important;
+      box-shadow: 0 0 20px rgba(201,168,76,0.3) !important;
+    }
+
+    .nav-cta::after { display: none !important; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 60px 80px;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 70% 50%, rgba(176,0,32,0.20) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 50% at 30% 70%, rgba(201,168,76,0.07) 0%, transparent 60%),
+        var(--black);
+      will-change: transform;
+    }
+
+    .hero-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .hero-title span {
+      display: block;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    /* Shimmer sweep on gold text */
+    @keyframes shimmer-sweep {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .hero-title span {
+      background: linear-gradient(
+        105deg,
+        var(--gold-dark) 0%,
+        var(--gold) 30%,
+        var(--gold-light) 45%,
+        #FFF8DC 50%,
+        var(--gold-light) 55%,
+        var(--gold) 70%,
+        var(--gold-dark) 100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer-sweep 4s linear infinite;
+      animation-delay: 1.5s;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      color: var(--white-dim);
+      font-weight: 300;
+      margin-bottom: 20px;
+      max-width: 480px;
+    }
+
+    .hero-since {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 52px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.5;
+      animation: scroll-bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes scroll-bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
+      50% { transform: translateX(-50%) translateY(8px); opacity: 0.8; }
+    }
+
+    .scroll-indicator span {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .scroll-indicator svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--gold-dark);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--red);
+      color: var(--white);
+      padding: 16px 36px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.5s ease;
+      pointer-events: none;
+    }
+
+    .btn-primary:hover::before {
+      left: 150%;
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(176,0,32,0.4);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--gold);
+      padding: 15px 34px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(201,168,76,0.4);
+      transition: border-color 0.25s, background 0.25s, transform 0.2s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-secondary::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.1), transparent);
+      transition: left 0.5s ease;
+      pointer-events: none;
+    }
+
+    .btn-secondary:hover::before { left: 150%; }
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,168,76,0.15);
+    }
+
+    /* ── HERO PHONE BADGE ── */
+    .hero-phone-badge {
+      position: absolute;
+      right: 60px;
+      bottom: 60px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      animation: float-badge 5s ease-in-out infinite;
+    }
+
+    @keyframes float-badge {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .phone-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(26,26,26,0.75);
+      border: 1px solid rgba(201,168,76,0.25);
+      padding: 12px 20px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+    }
+
+    .phone-badge:hover {
+      border-color: rgba(201,168,76,0.55);
+      background: rgba(26,26,26,0.92);
+      transform: translateX(-4px);
+    }
+
+    .phone-badge-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .phone-badge-icon svg {
+      width: 10px;
+      height: 10px;
+      fill: white;
+    }
+
+    .phone-badge-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+    }
+
+    .phone-badge-number {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.1rem;
+      color: var(--white);
+      display: block;
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--black-2);
+      border-top: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 40px 60px;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .stat-item {
+      flex: 1;
+      max-width: 240px;
+      text-align: center;
+      padding: 0 40px;
+      border-right: 1px solid rgba(201,168,76,0.12);
+      position: relative;
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'Raleway', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: var(--gap) 60px; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .section-eyebrow::before,
+    .section-eyebrow::after {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .section-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      color: var(--white-dim);
+      max-width: 560px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--black); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 48px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(201,168,76,0.12);
+      will-change: transform;
+    }
+
+    /* Animated gradient top border */
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--gold), var(--gold-light), var(--gold), var(--red));
+      background-size: 200%;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    /* Mouse spotlight on hover */
+    .service-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        320px circle at var(--mx, 50%) var(--my, -20%),
+        rgba(201,168,76,0.08) 0%,
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .service-card:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(201,168,76,0.22);
+      box-shadow: 0 0 40px rgba(0,0,0,0.4);
+      transform: translateY(-2px);
+    }
+
+    .service-card:hover::before {
+      transform: scaleX(1);
+      animation: border-shimmer 2s linear infinite;
+    }
+
+    @keyframes border-shimmer {
+      0%   { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .service-card:hover::after { opacity: 1; }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(176,0,32,0.12);
+      border: 1px solid rgba(176,0,32,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+      transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .service-card:hover .service-icon {
+      background: rgba(176,0,32,0.22);
+      border-color: rgba(201,168,76,0.4);
+      box-shadow: 0 0 20px rgba(176,0,32,0.25);
+    }
+
+    .service-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .service-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.2rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .service-text {
+      color: var(--white-dim);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    /* ── WHY ── */
+    #why {
+      background: var(--black-2);
+      border-top: 1px solid rgba(201,168,76,0.1);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .why-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 20px;
+      line-height: 1.15;
+    }
+
+    .why-title em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .why-text {
+      color: var(--white-dim);
+      font-size: 0.95rem;
+      margin-bottom: 40px;
+      max-width: 440px;
+    }
+
+    .why-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .why-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      font-size: 0.9rem;
+      color: var(--white-dim);
+      transition: color 0.2s;
+    }
+
+    .why-features li:hover { color: var(--white); }
+
+    .why-features li::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border: 1px solid var(--gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 10l4 4 8-8' stroke='%23C9A84C' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat;
+    }
+
+    .why-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .why-card {
+      background: var(--black-3);
+      padding: 36px 28px;
+      border: 1px solid rgba(201,168,76,0.08);
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .why-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 120%, rgba(201,168,76,0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .why-card:hover {
+      border-color: rgba(201,168,76,0.3);
+      background: rgba(30,28,24,0.95);
+      transform: translateY(-2px);
+    }
+
+    .why-card:hover::before { opacity: 1; }
+
+    .why-card-number {
+      font-family: 'Raleway', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .why-card-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+    }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 60%, #D00030 100%);
+      padding: 80px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(0,0,0,0.04) 0px,
+        rgba(0,0,0,0.04) 1px,
+        transparent 1px,
+        transparent 14px
+      );
+      pointer-events: none;
+    }
+
+    /* Animated glow orb */
+    .cta-band::after {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(255,255,255,0.06) 0%, transparent 70%);
+      animation: cta-glow-pulse 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes cta-glow-pulse {
+      0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+      50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+    }
+
+    .cta-band-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-band-sub {
+      color: rgba(245,240,232,0.7);
+      margin-bottom: 40px;
+      font-size: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-band-phones {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-phone-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(8,8,8,0.5);
+      border: 1px solid rgba(245,240,232,0.3);
+      color: var(--white);
+      padding: 16px 32px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.3rem;
+      text-decoration: none;
+      transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-phone-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.15), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .cta-phone-btn:hover::before { left: 150%; }
+
+    .cta-phone-btn:hover {
+      background: rgba(8,8,8,0.8);
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 0 1px rgba(201,168,76,0.2);
+    }
+
+    .cta-phone-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--black); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .contact-info-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.6rem;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+      align-items: flex-start;
+    }
+
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(176,0,32,0.12);
+      border: 1px solid rgba(176,0,32,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .contact-item:hover .contact-item-icon {
+      background: rgba(176,0,32,0.22);
+      border-color: rgba(201,168,76,0.3);
+    }
+
+    .contact-item-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .contact-item-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .contact-item-value {
+      color: var(--white);
+      font-size: 0.95rem;
+    }
+
+    .contact-item-value a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-item-value a:hover { color: var(--gold); }
+
+    /* contact form */
+    .form-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.6rem;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: var(--black-2);
+      border: 1px solid rgba(201,168,76,0.2);
+      color: var(--white);
+      padding: 14px 18px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(184,176,160,0.4); }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.08);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    .form-submit {
+      width: 100%;
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      padding: 16px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-submit::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .form-submit:hover::before { left: 150%; }
+
+    .form-submit:hover {
+      background: var(--red-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(176,0,32,0.35);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black-2);
+      border-top: 1px solid rgba(201,168,76,0.12);
+      padding: 48px 60px 32px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand img {
+      mix-blend-mode: screen;
+    }
+
+    .footer-tagline {
+      color: var(--white-dim);
+      font-size: 0.82rem;
+      max-width: 260px;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .footer-nav-col h4 {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .footer-nav-col ul { list-style: none; }
+
+    .footer-nav-col li { margin-bottom: 10px; }
+
+    .footer-nav-col a {
+      color: var(--white-dim);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s, padding-left 0.2s;
+    }
+
+    .footer-nav-col a:hover {
+      color: var(--gold);
+      padding-left: 6px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      color: rgba(184,176,160,0.4);
+      font-size: 0.78rem;
+    }
+
+    .footer-gold-line {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+    }
+
+    /* ── LOGO SVG ── */
+    .logo-svg { display: block; }
+
+    /* ── DIVIDER ── */
+    .gold-divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--gold));
+      margin: 0 auto 0;
+      display: block;
+    }
+
+    /* ── HERO ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse-ring {
+      0%   { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
+    .hero-content > * {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .hero-eyebrow  { animation-delay: 0.1s; }
+    .hero-title    { animation-delay: 0.25s; }
+    .hero-subtitle { animation-delay: 0.4s; }
+    .hero-since    { animation-delay: 0.5s; }
+    .hero-actions  { animation-delay: 0.6s; }
+
+    .pulse-dot {
+      position: relative;
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+    }
+
+    .pulse-dot::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+
+    .pulse-dot::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border: 2px solid #22c55e;
+      border-radius: 50%;
+      animation: pulse-ring 1.5s ease-out infinite;
+    }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered delays */
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── SOCIAL BUTTONS ── */
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--black-2);
+      border: 1px solid rgba(201,168,76,0.2);
+      color: var(--white-dim);
+      padding: 10px 18px;
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: border-color 0.25s, color 0.25s, background 0.25s, transform 0.2s;
+    }
+
+    .social-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.07);
+      transform: translateY(-2px);
+    }
+
+    /* ── PREMIUM UPGRADES ── */
+
+    /* 1. Rotating conic-gradient border on hero secondary CTA */
+    @property --btn-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes btn-border-spin {
+        to { --btn-angle: 360deg; }
+      }
+
+      .hero-actions .btn-secondary {
+        border-color: transparent;
+        background-image:
+          linear-gradient(var(--black), var(--black)),
+          conic-gradient(from var(--btn-angle),
+            var(--gold-dark) 0%,
+            var(--gold) 30%,
+            var(--gold-light) 50%,
+            var(--gold) 70%,
+            var(--gold-dark) 100%);
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+        animation: btn-border-spin 3.5s linear infinite;
+      }
+
+      .hero-actions .btn-secondary:hover {
+        border-color: transparent;
+        background-image:
+          linear-gradient(rgba(201,168,76,0.08), rgba(201,168,76,0.08)),
+          conic-gradient(from var(--btn-angle),
+            var(--gold-dark) 0%,
+            var(--gold) 30%,
+            var(--gold-light) 50%,
+            var(--gold) 70%,
+            var(--gold-dark) 100%);
+      }
+    }
+
+    /* 2. Hero title line-by-line reveal */
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-title {
+        animation: none !important;
+        opacity: 1 !important;
+      }
+
+      @keyframes hero-line-up {
+        from { transform: translateY(100%); opacity: 0; }
+        to   { transform: translateY(0);    opacity: 1; }
+      }
+    }
+
+    /* 4. Section dividers */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(201,168,76,0.3) 20%,
+        rgba(176,0,32,0.5) 50%,
+        rgba(201,168,76,0.3) 80%,
+        transparent 100%
+      );
+      width: 0%;
+      transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .section-divider.in-view { width: 100%; }
+
+    /* 5. Stat number shimmer after count */
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes stat-gold-shimmer {
+        0%   { background-position: -200% center; }
+        100% { background-position: 200% center; }
+      }
+
+      .stat-number.shimmer {
+        background: linear-gradient(
+          105deg,
+          var(--gold-dark) 0%,
+          var(--gold) 30%,
+          var(--gold-light) 45%,
+          #FFF8DC 50%,
+          var(--gold-light) 55%,
+          var(--gold) 70%,
+          var(--gold-dark) 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: stat-gold-shimmer 0.9s ease-in-out;
+      }
+    }
+
+    /* 7. CTA band grain texture */
+    .cta-grain {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes grain-jitter {
+        0%   { transform: translate(0,   0);   }
+        25%  { transform: translate(-2px, 2px); }
+        50%  { transform: translate( 2px,-1px); }
+        75%  { transform: translate(-1px,-2px); }
+        100% { transform: translate( 1px, 1px); }
+      }
+      .cta-grain { animation: grain-jitter 0.4s steps(1) infinite; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      nav.scrolled { padding: 10px 24px; }
+      .nav-links { display: none; }
+      #hero { padding: 100px 24px 100px; }
+      .hero-phone-badge { display: none; }
+      .stats-bar { padding: 32px 24px; flex-wrap: wrap; gap: 32px; }
+      .stat-item { border-right: none; padding: 0; }
+      section { padding: 60px 24px; }
+      .why-grid { grid-template-columns: 1fr; gap: 40px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .cta-band { padding: 60px 24px; }
+      footer { padding: 40px 24px 24px; }
+      .footer-top { flex-direction: column; }
+    }
+
+    @media (max-width: 600px) {
+      .why-right { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Scroll progress indicator -->
+<div id="scroll-progress"></div>
+
+<!-- ══ NAV ══ -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">
+    <img src="logo.png" class="nav-logo-icon" alt="Теникс лого" />
+    <span class="nav-brand">Такси <strong>ТЕНИКС</strong></span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#why">За нас</a></li>
+    <li><a href="#contact">Контакт</a></li>
+    <li><a href="tel:0215194" class="nav-cta">Нарачај</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <!-- Particle canvas -->
+  <canvas id="hero-canvas"></canvas>
+
+  <div class="hero-bg" id="hero-bg"></div>
+  <div class="hero-grid-lines" id="hero-grid"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="pulse-dot"></span>
+      Достапни 24/7 — Скопје
+    </div>
+
+    <h1 class="hero-title">
+      ТУКА —
+      <span>кога најмногу<br>ти треба.</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Брз, сигурен и удобен превоз низ целото Скопје. Еден повик — ние веќе пристигнуваме.
+    </p>
+
+    <p class="hero-since">Основана 1992 · 34 години на пазарот</p>
+
+    <div class="hero-actions">
+      <a href="tel:0215194" class="btn-primary">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        Нарачај: 021 5194
+      </a>
+      <a href="tel:+38971209194" class="btn-secondary">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        +389 71 209 194
+      </a>
+    </div>
+  </div>
+
+  <!-- floating phone badges -->
+  <div class="hero-phone-badge">
+    <div class="phone-badge">
+      <div class="phone-badge-icon">
+        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      </div>
+      <div>
+        <span class="phone-badge-label">Нарачки</span>
+        <span class="phone-badge-number">021 5194</span>
+      </div>
+    </div>
+    <div class="phone-badge">
+      <div class="phone-badge-icon">
+        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      </div>
+      <div>
+        <span class="phone-badge-label">Мобилен</span>
+        <span class="phone-badge-number">+389 71 209 194</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ══ STATS BAR ══ -->
+<div class="stats-bar">
+  <div class="stat-item reveal">
+    <span class="stat-number" data-target="34" data-suffix="">34</span>
+    <span class="stat-label">Години традиција</span>
+  </div>
+  <div class="stat-item reveal reveal-delay-1">
+    <span class="stat-number">24/7</span>
+    <span class="stat-label">Достапност</span>
+  </div>
+  <div class="stat-item reveal reveal-delay-2">
+    <span class="stat-number" data-target="1992" data-suffix="">1992</span>
+    <span class="stat-label">Основана</span>
+  </div>
+</div>
+
+<!-- ══ SERVICES ══ -->
+<section id="services">
+  <div class="section-header">
+    <div class="section-eyebrow reveal">Наши услуги</div>
+    <h2 class="section-title reveal reveal-delay-1">Превоз за секоја потреба</h2>
+    <p class="section-desc reveal reveal-delay-2">Без разлика дали патувате до аеродром, деловен состанок или низ градот — Теникс е тука.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <!-- Taxi / car icon -->
+        <svg viewBox="0 0 24 24"><path d="M5 11l1.5-4.5h11L19 11"/><path d="M2 11h20v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-7z"/><circle cx="7" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/><path d="M12 4v2M9 4h6"/></svg>
+      </div>
+      <h3 class="service-title">Градски превоз</h3>
+      <p class="service-text">Брза нарачка, точно преземање. Стигнувате навреме, секој пат — без чекање, без изненадувања.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72c.127.96.36 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.27 6.27l1.78-1.78a2 2 0 0 1 2.11-.45c.907.34 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <h3 class="service-title">Нарачка по телефон</h3>
+      <p class="service-text">Едноставно јавете се на <strong style="color:var(--white)">021 5194</strong> или <strong style="color:var(--white)">+389 71 209 194</strong>. Без апликации, без компликации.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <h3 class="service-title">Трансфер аеродром</h3>
+      <p class="service-text">Навремен трансфер до и од аеродромот Александар Велики. Следење на летот, без доцнење.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon">
+        <!-- Briefcase icon -->
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="2" y1="14" x2="22" y2="14"/></svg>
+      </div>
+      <h3 class="service-title">Деловни патувања</h3>
+      <p class="service-text">За корпоративни клиенти — месечно фактурирање, договорени цени, приоритетна услуга.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHY ══ -->
+<section id="why">
+  <div class="why-grid">
+    <div class="why-left">
+      <div class="section-eyebrow reveal" style="margin-bottom:20px">Зошто Теникс?</div>
+      <h2 class="why-title reveal reveal-delay-1">
+        Доверба изградена<br>низ <em>три децении</em>
+      </h2>
+      <p class="why-text reveal reveal-delay-2">
+        Теникс е такси компанија со најдолга традиција во Скопје. Нашата репутација не се гради со маркетинг — таа се гради со секоја вожња, секој ден, 34 години по ред.
+      </p>
+      <ul class="why-features">
+        <li class="reveal reveal-delay-1">Голема флота достапна 24 часа, 7 дена во неделата</li>
+        <li class="reveal reveal-delay-2">Искусни и верифицирани возачи со познавање на градот</li>
+        <li class="reveal reveal-delay-3">Фиксни цени — без скриени такси или изненадувања</li>
+        <li class="reveal reveal-delay-1">Брзо преземање — просечно чекање под 5 минути</li>
+        <li class="reveal reveal-delay-2">Меѓуградски и аеродромски трансфери по договор</li>
+        <li class="reveal reveal-delay-3">Корпоративни договори со месечно фактурирање</li>
+      </ul>
+    </div>
+
+    <div class="why-right">
+      <div class="why-card reveal">
+        <span class="why-card-number">34+</span>
+        <span class="why-card-label">Години</span>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <span class="why-card-number">#1</span>
+        <span class="why-card-label">Традиција во Скопје</span>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <span class="why-card-number">24/7</span>
+        <span class="why-card-label">Достапност</span>
+      </div>
+      <div class="why-card reveal reveal-delay-3">
+        <span class="why-card-number">1992</span>
+        <span class="why-card-label">Основана</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA BAND ══ -->
+<div class="cta-band">
+  <h2 class="cta-band-title reveal">Нарачајте такси сега</h2>
+  <p class="cta-band-sub reveal reveal-delay-1">Еден повик е доволен. Ние се грижиме за остатокот.</p>
+  <div class="cta-band-phones reveal reveal-delay-2">
+    <a href="tel:0215194" class="cta-phone-btn">
+      <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      021 5194
+    </a>
+    <a href="tel:+38971209194" class="cta-phone-btn">
+      <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      +389 71 209 194
+    </a>
+  </div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="section-header">
+    <div class="section-eyebrow reveal">Контакт</div>
+    <h2 class="section-title reveal reveal-delay-1">Јавете ни се</h2>
+  </div>
+
+  <div class="contact-grid">
+    <div>
+      <h3 class="contact-info-title reveal">Информации</h3>
+
+      <div class="contact-item reveal reveal-delay-1">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72c.127.96.36 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.27 6.27l1.78-1.78a2 2 0 0 1 2.11-.45c.907.34 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div>
+          <span class="contact-item-label">Нарачки</span>
+          <div class="contact-item-value">
+            <a href="tel:0215194">021 5194</a><br>
+            <a href="tel:+38971209194">+389 71 209 194</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-item reveal reveal-delay-2">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <span class="contact-item-label">Локација</span>
+          <div class="contact-item-value">Скопје, Северна Македонија</div>
+        </div>
+      </div>
+
+      <div class="contact-item reveal reveal-delay-3">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div>
+          <span class="contact-item-label">Работно Време</span>
+          <div class="contact-item-value">24 часа / 7 дена</div>
+        </div>
+      </div>
+
+      <div class="contact-item reveal reveal-delay-3">
+        <div class="contact-item-icon">
+          <!-- Envelope / mail icon -->
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <span class="contact-item-label">Email</span>
+          <div class="contact-item-value">
+            <a href="mailto:teniksplavalaguna@gmail.com">teniksplavalaguna@gmail.com</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social media -->
+      <div class="social-links reveal" style="margin-top:36px;">
+        <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">Следете не</p>
+        <div style="display:flex;gap:12px;">
+          <a href="https://www.facebook.com/tenikstaxiskopje/?locale=mk_MK"
+             target="_blank" rel="noopener noreferrer"
+             class="social-btn"
+             title="Facebook — Теникс Такси Скопје">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            <span>Facebook</span>
+          </a>
+          <a href="https://www.instagram.com/taxiteniksskopje15194/"
+             target="_blank" rel="noopener noreferrer"
+             class="social-btn"
+             title="Instagram — Теникс Такси">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <span>Instagram</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form reveal reveal-delay-2">
+      <h3 class="form-title">Резервирајте возење</h3>
+      <p style="color:var(--white-dim);font-size:0.85rem;margin-bottom:24px;margin-top:-16px;">
+        Или пишете директно на
+        <a href="mailto:teniksplavalaguna@gmail.com" style="color:var(--gold);text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">teniksplavalaguna@gmail.com</a>
+      </p>
+      <form id="reservationForm" onsubmit="handleForm(event)">
+        <!-- Web3Forms access key — НЕ БРИШЕТЕ -->
+        <input type="hidden" name="access_key" value="398b415d-85fb-4a7a-9337-0ad2c167ba43" />
+        <input type="hidden" name="subject" value="Нова резервација — Теникс Такси" />
+        <input type="hidden" name="from_name" value="Теникс Такси Веб" />
+        <input type="hidden" name="replyto" id="replyto" value="" />
+
+        <div class="form-group">
+          <label for="fname">Вашето Име</label>
+          <input type="text" id="fname" name="name" placeholder="Никола Иванов" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Телефон</label>
+          <input type="tel" id="phone" name="phone" placeholder="+389 7X XXX XXX" required />
+        </div>
+        <div class="form-group">
+          <label for="service">Вид на услуга</label>
+          <select id="service" name="service">
+            <option value="">— Изберете —</option>
+            <option>Градски превоз</option>
+            <option>Аеродромски трансфер</option>
+            <option>Меѓуградски превоз</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="msg">Детали за резервацијата</label>
+          <textarea id="msg" name="message" placeholder="Датум, час, адреса на преземање, дестинација..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="submitBtn">Резервирај возење →</button>
+
+        <!-- Feedback порака -->
+        <div id="formFeedback" style="display:none; margin-top:16px; padding:14px 18px; font-size:0.88rem; letter-spacing:0.03em;"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <a class="footer-brand" href="#hero">
+        <img src="logo.png" width="40" height="40" alt="Теникс лого" style="object-fit:contain;" />
+        <span style="font-family:'Raleway',sans-serif;font-size:1.25rem;color:var(--gold);font-weight:700;letter-spacing:0.08em;">Такси <strong>ТЕНИКС</strong></span>
+      </a>
+      <p class="footer-tagline">Такси компанија во Скопје со 34 години традиција. Тука — кога најмногу ти треба.</p>
+    </div>
+
+    <div class="footer-nav">
+      <div class="footer-nav-col">
+        <h4>Навигација</h4>
+        <ul>
+          <li><a href="#hero">Почетна</a></li>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#why">За нас</a></li>
+          <li><a href="#contact">Контакт</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav-col">
+        <h4>Контакт</h4>
+        <ul>
+          <li><a href="tel:0215194">021 5194</a></li>
+          <li><a href="tel:+38971209194">+389 71 209 194</a></li>
+          <li><a href="#contact">Резервирај возење</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Теникс Такси. Сите права задржани. · Скопје, Северна Македонија</span>
+    <div class="footer-gold-line"></div>
+    <span class="footer-copy">Основана 1992</span>
+  </div>
+</footer>
+
+<script>
+  /* ── SCROLL PROGRESS ── */
+  const progressBar = document.getElementById('scroll-progress');
+  const navbar = document.getElementById('navbar');
+
+  /* ── PARALLAX HERO ── */
+  const heroBg   = document.getElementById('hero-bg');
+  const heroGrid = document.getElementById('hero-grid');
+
+  window.addEventListener('scroll', () => {
+    const sy = window.scrollY;
+
+    // Nav scroll state
+    if (sy > 60) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+
+    // Scroll progress bar
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (sy / docH * 100) + '%';
+
+    // Parallax: bg moves at ~30% scroll speed, grid at ~15%
+    if (heroBg)   heroBg.style.transform   = `translateY(${sy * 0.30}px)`;
+    if (heroGrid) heroGrid.style.transform = `translateY(${sy * 0.15}px)`;
+  }, { passive: true });
+
+  /* ── PARTICLE CANVAS ── */
+  (function() {
+    const canvas = document.getElementById('hero-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const PARTICLE_COUNT = 55;
+    const particles = [];
+
+    // Gold palette
+    const colors = [
+      'rgba(201,168,76,',
+      'rgba(226,194,122,',
+      'rgba(154,122,48,',
+      'rgba(176,0,32,',
+    ];
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.6 + 0.4,
+        dx: (Math.random() - 0.5) * 0.3,
+        dy: -(Math.random() * 0.4 + 0.15),
+        opacity: Math.random() * 0.5 + 0.1,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        life: Math.random(),
+        speed: Math.random() * 0.004 + 0.002,
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of particles) {
+        // Fade in/out cycle
+        p.life += p.speed;
+        const fade = Math.sin(p.life * Math.PI);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + (p.opacity * fade).toFixed(3) + ')';
+        ctx.fill();
+
+        // Move
+        p.x += p.dx;
+        p.y += p.dy;
+
+        // Reset when off-screen or life cycle ends
+        if (p.y < -10 || p.life >= 1) {
+          p.x = Math.random() * canvas.width;
+          p.y = canvas.height + 10;
+          p.life = 0;
+        }
+        if (p.x < -10 || p.x > canvas.width + 10) {
+          p.x = Math.random() * canvas.width;
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  /* ── SCROLL REVEAL ── */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ── COUNTER ANIMATION ── */
+  function animateCounter(el) {
+    const target = parseInt(el.getAttribute('data-target'), 10);
+    if (!target) return;
+    const duration = 1800;
+    const start = performance.now();
+    const startVal = Math.max(0, target - Math.round(target * 0.4));
+
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(startVal + (target - startVal) * eased);
+      el.textContent = current;
+      if (progress < 1) requestAnimationFrame(step);
+      else {
+        el.textContent = target;
+        if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+          el.classList.add('shimmer');
+          el.addEventListener('animationend', () => el.classList.remove('shimmer'), { once: true });
+        }
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+        entry.target.classList.add('counted');
+        animateCounter(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stat-number[data-target]').forEach(el => counterObserver.observe(el));
+
+  /* ── CARD TILT (subtle 3D on service cards) ── */
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width  / 2;
+      const cy = rect.top  + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width  / 2);
+      const dy = (e.clientY - cy) / (rect.height / 2);
+      card.style.transform = `translateY(-2px) rotateX(${-dy * 3}deg) rotateY(${dx * 3}deg)`;
+      card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100).toFixed(1) + '%');
+      card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100).toFixed(1) + '%');
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  /* ── PREMIUM: Section dividers ── */
+  (function() {
+    const targets = ['#services', '#why', '.cta-band', '#contact'];
+    targets.forEach(sel => {
+      const el = document.querySelector(sel);
+      if (!el) return;
+      const d = document.createElement('div');
+      d.className = 'section-divider';
+      el.parentNode.insertBefore(d, el);
+      revealObserver.observe(d);
+    });
+  })();
+
+  /* ── PREMIUM: CTA grain texture ── */
+  (function() {
+    const ctaBand = document.querySelector('.cta-band');
+    if (!ctaBand) return;
+    const grain = document.createElement('div');
+    grain.className = 'cta-grain';
+    ctaBand.insertAdjacentElement('afterbegin', grain);
+  })();
+
+  /* ── PREMIUM: Hero title line reveal ── */
+  (function() {
+    if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
+    const ht = document.querySelector('.hero-title');
+    if (!ht) return;
+
+    let lineDelay = 0.25;
+    const nodes = Array.from(ht.childNodes);
+
+    nodes.forEach(node => {
+      if (node.nodeType === 3 && node.textContent.trim()) {
+        // Text node "ТУКА —" → wrap in overflow-hidden + translateY inner
+        const wrapper = document.createElement('span');
+        wrapper.style.cssText = 'display:block;overflow:hidden;line-height:1.15;';
+        const inner = document.createElement('span');
+        inner.style.cssText = `display:block;animation:hero-line-up 0.65s cubic-bezier(0.16,1,0.3,1) ${lineDelay}s both;`;
+        inner.textContent = node.textContent;
+        wrapper.appendChild(inner);
+        ht.replaceChild(wrapper, node);
+        lineDelay += 0.22;
+      } else if (node.nodeType === 1 && node.tagName === 'SPAN') {
+        // Gold span — animate via Web Animations API (preserves CSS shimmer)
+        node.animate(
+          [{ transform: 'translateY(40px)', opacity: 0 },
+           { transform: 'translateY(0px)',  opacity: 1 }],
+          { duration: 650, delay: lineDelay * 1000,
+            easing: 'cubic-bezier(0.16,1,0.3,1)', fill: 'both' }
+        );
+        lineDelay += 0.22;
+      }
+    });
+  })();
+
+  /* ── FORM HANDLER — Web3Forms ── */
+  async function handleForm(e) {
+    e.preventDefault();
+
+    const btn      = document.getElementById('submitBtn');
+    const feedback = document.getElementById('formFeedback');
+
+    // Loading state
+    btn.disabled = true;
+    btn.textContent = 'Се праќа...';
+    btn.style.opacity = '0.7';
+    feedback.style.display = 'none';
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const json = await res.json();
+
+      if (res.ok && json.success) {
+        // Успех
+        btn.textContent = '✓ Резервацијата е пратена!';
+        btn.style.background = '#1a6b3a';
+        btn.style.opacity = '1';
+        feedback.style.display = 'block';
+        feedback.style.background = 'rgba(26,107,58,0.15)';
+        feedback.style.border = '1px solid rgba(26,107,58,0.4)';
+        feedback.style.color = '#6fcf97';
+        feedback.textContent = '✓ Вашата резервација е примена. Ќе ве контактираме наскоро.';
+        e.target.reset();
+        setTimeout(() => {
+          btn.textContent = 'Резервирај возење →';
+          btn.style.background = '';
+          feedback.style.display = 'none';
+          btn.disabled = false;
+        }, 5000);
+      } else {
+        throw new Error(json.message || 'Грешка');
+      }
+    } catch (err) {
+      btn.textContent = 'Резервирај возење →';
+      btn.style.opacity = '1';
+      btn.disabled = false;
+      feedback.style.display = 'block';
+      feedback.style.background = 'rgba(176,0,32,0.12)';
+      feedback.style.border = '1px solid rgba(176,0,32,0.3)';
+      feedback.style.color = '#ff6b6b';
+      feedback.textContent = '⚠ Грешка при праќање. Јавете се директно на 021 5194.';
+    }
+  }
+</script>
+</body>
+</html>
